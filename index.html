@@ -1,0 +1,730 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Special Birthday Celebration</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+        }
+
+        body {
+    background: linear-gradient(-45deg, #ffb6c1, #ffc0cb, #f8bbd0, #f48fb1);
+    background-size: 350% 350%;
+    animation: gradient 15s ease infinite;
+    min-height: 95vh;
+    overflow-x: hidden;
+    position: relative;
+}
+
+/* Video Background */
+#background-video {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    opacity: 0.7; /* Adjust opacity */
+    filter: brightness(80%) contrast(110%) sepia(20%) hue-rotate(320deg); /* Light pink filter */
+    z-index: -1;
+}
+
+
+        @keyframes gradient {
+            0% {
+                background-position: 0% 50%;
+            }
+            50% {
+                background-position: 100% 50%;
+            }
+            100% {
+                background-position: 0% 50%;
+            }
+        }
+
+        .navbar {
+            position: fixed;
+            top: 0;
+            width: 100%;
+            background-color: rgba(255, 255, 255, 0.645);
+            backdrop-filter: blur(10px);
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 1rem 2rem;
+            box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+            z-index: 1000;
+        }
+
+        .logo {
+            font-size: 1.5rem;
+            font-weight: bold;
+            color: #e91e63;
+        }
+
+        .nav-links {
+            display: flex;
+            list-style: none;
+        }
+
+        .nav-links li {
+            margin-left: 2rem;
+        }
+
+        .nav-links a {
+            text-decoration: none;
+            color: #e91e63;
+            font-weight: 500;
+            transition: all 0.3s ease;
+        }
+
+        .nav-links a:hover {
+            color: #c2185b;
+        }
+
+        .mobile-menu {
+            display: none;
+            cursor: pointer;
+        }
+
+        .hero {
+            height: 100vh;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            text-align: center;
+            padding: 0 2rem;
+            position: relative;
+        }
+
+        .hero h1 {
+            font-size: 3.5rem;
+            margin-bottom: 1rem;
+            color: #fff;
+            text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.2);
+        }
+
+        .hero p {
+            font-size: 1.2rem;
+            max-width: 600px;
+            margin-bottom: 2rem;
+            color: #fff;
+            text-shadow: 1px 1px 2px rgba(0, 0, 0, 0.2);
+        }
+
+        .hero-btn {
+            padding: 0.8rem 2rem;
+            background-color: #e91e63;
+            color: white;
+            border: none;
+            border-radius: 30px;
+            font-size: 1rem;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+        }
+
+        .hero-btn:hover {
+            background-color: #c2185b;
+            transform: translateY(-3px);
+            box-shadow: 0 6px 10px rgba(0, 0, 0, 0.2);
+        }
+
+        .floating-hearts {
+            position: absolute;
+            width: 100%;
+            height: 100%;
+            pointer-events: none;
+            overflow: hidden;
+        }
+
+        .heart {
+            position: absolute;
+            width: 30px;
+            height: 30px;
+            background: url('data:image/svg+xml;utf8,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="%23e91e63"><path d="M12 21.35l-1.45-1.32C5.4 15.36 2 12.28 2 8.5 2 5.42 4.42 3 7.5 3c1.74 0 3.41.81 4.5 2.09C13.09 3.81 14.76 3 16.5 3 19.58 3 22 5.42 22 8.5c0 3.78-3.4 6.86-8.55 11.54L12 21.35z"/></svg>') no-repeat center center;
+            opacity: 0;
+            animation: float 10s linear infinite;
+        }
+
+        @keyframes float {
+            0% {
+                transform: translateY(0) rotate(0deg);
+                opacity: 0;
+            }
+            10% {
+                opacity: 1;
+            }
+            90% {
+                opacity: 1;
+            }
+            100% {
+                transform: translateY(-100vh) rotate(360deg);
+                opacity: 0;
+            }
+        }
+
+        .gallery {
+            padding: 4rem 2rem;
+            background-color: rgba(255, 255, 255, 0.8);
+        }
+
+        .gallery h2 {
+            text-align: center;
+            margin-bottom: 2rem;
+            color: #e91e63;
+        }
+
+        .image-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+            gap: 1.5rem;
+        }
+
+        .image-card {
+            position: relative;
+            height: 250px;
+            border-radius: 10px;
+            overflow: hidden;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+            transition: transform 0.3s ease;
+        }
+
+        .image-card:hover {
+            transform: translateY(-5px);
+        }
+
+        .image-card img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+        }
+
+        .countdown {
+            padding: 4rem 2rem;
+            text-align: center;
+        }
+
+        .countdown h2 {
+            color: white;
+            margin-bottom: 2rem;
+            text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.2);
+        }
+
+        .countdown-timer {
+            display: flex;
+            justify-content: center;
+            gap: 1.5rem;
+        }
+
+        .countdown-box {
+            background-color: rgba(255, 255, 255, 0.8);
+            padding: 1.5rem;
+            border-radius: 10px;
+            min-width: 100px;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+        }
+
+        .countdown-box .number {
+            font-size: 2.5rem;
+            font-weight: bold;
+            color: #e91e63;
+        }
+
+        .countdown-box .label {
+            font-size: 0.9rem;
+            color: #888;
+        }
+
+        footer {
+            background-color: rgba(255, 255, 255, 0.8);
+            padding: 2rem;
+            text-align: center;
+            color: #666;
+        }
+
+        footer p {
+            margin-bottom: 1rem;
+        }
+
+        .floating-hearts {
+    position: absolute;
+    width: 100%;
+    height: 100%;
+    top: 0;
+    left: 0;
+    pointer-events: none;
+    overflow: hidden;
+}
+
+
+.image-grid {
+            display: grid;
+            grid-template-columns: repeat(4, 1fr); /* 4 columns */
+            gap: 10px;
+            padding: 20px;
+            text-align: center;
+        }
+        
+        .image-card img {
+            width: 100%;
+            height: 200px;
+            border-radius: 10px;
+            cursor: pointer;
+            transition: transform 0.3s ease;
+            object-fit: cover;
+        }
+
+        .image-card img:hover {
+            transform: scale(1.05);
+        }
+
+        /* Modal Popup */
+        .modal {
+            display: none;
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: rgba(0, 0, 0, 0.8);
+            justify-content: center;
+            align-items: center;
+        }
+
+        .modal-content {
+            position: relative;
+            background: white;
+            padding: 15px;
+            border-radius: 10px;
+            max-width: 80%;
+            text-align: center;
+        }
+
+        .modal img {
+            width: 100%;
+            max-height: 400px;
+            border-radius: 10px;
+        }
+
+        .description {
+            margin-top: 10px;
+            font-size: 16px;
+        }
+
+        .close-btn {
+            position: absolute;
+            top: 10px;
+            right: 10px;
+            background: red;
+            color: white;
+            border: none;
+            padding: 5px 10px;
+            cursor: pointer;
+            border-radius: 5px;
+        }
+
+        .close-btn:hover {
+            background: darkred;
+        }
+
+        /* Responsive Design */
+        @media (max-width: 768px) {
+            .image-grid {
+                grid-template-columns: repeat(2, 1fr); /* 2 columns for smaller screens */
+            }
+        }
+        
+        @media (max-width: 480px) {
+            .image-grid {
+                grid-template-columns: repeat(1, 1fr); /* 1 column for mobile */
+            }
+        }
+
+.heart {
+    position: absolute;
+    width: 30px;
+    height: 30px;
+    background: url('data:image/svg+xml;utf8,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="%23e91e63"><path d="M12 21.35l-1.45-1.32C5.4 15.36 2 12.28 2 8.5 2 5.42 4.42 3 7.5 3c1.74 0 3.41.81 4.5 2.09C13.09 3.81 14.76 3 16.5 3 19.58 3 22 5.42 22 8.5c0 3.78-3.4 6.86-8.55 11.54L12 21.35z"/></svg>') no-repeat center;
+    background-size: cover;
+    opacity: 0;
+    animation: float 10s linear infinite;
+}
+
+@keyframes float {
+    0% {
+        transform: translateY(0) rotate(0deg);
+        opacity: 0;
+    }
+    10% {
+        opacity: 1;
+    }
+    90% {
+        opacity: 1;
+    }
+    100% {
+        transform: translateY(-100vh) rotate(360deg);
+        opacity: 0;
+    }
+}
+
+
+        @media (max-width: 768px) {
+            .navbar {
+                padding: 1rem;
+            }
+
+            .nav-links {
+                position: absolute;
+                top: 70px;
+                left: 0;
+                width: 100%;
+                background-color: rgba(255, 255, 255, 0.995);
+                display: flex;
+                flex-direction: column;
+                align-items: center;
+                padding: 1rem 0;
+                transform: translateY(-150%);
+                transition: transform 0.3s ease;
+                box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+            }
+
+            .nav-links.active {
+                transform: translateY(0);
+            }
+
+            .nav-links li {
+                margin: 1rem 0;
+            }
+
+            .mobile-menu {
+                display: block;
+            }
+
+            .hero h1 {
+                font-size: 2.5rem;
+            }
+
+            .countdown-timer {
+                flex-wrap: wrap;
+            }
+
+            .countdown-box {
+                min-width: 80px;
+            }
+        }
+
+
+
+    </style>
+</head>
+<body>
+    <nav class="navbar">
+        <div class="logo">♥ Special Day</div>
+        <ul class="nav-links">
+            <li><a href="#home">Home</a></li>
+            <li><a href="#gallery">Gallery</a></li>
+            <li><a href="https://loveslide.netlify.app/">Love Slider</a></li>
+            <li><a href="https://draglovee.netlify.app/">Find My Heart</a></li>
+            
+        </ul>
+        <div class="mobile-menu">
+            <svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+                <path d="M3 12H21" stroke="#e91e63" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+                <path d="M3 6H21" stroke="#e91e63" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+                <path d="M3 18H21" stroke="#e91e63" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+            </svg>
+        </div>
+    </nav>
+
+    <section class="hero" id="home">
+        <div class="floating-hearts" id="hearts-container"></div>
+        <h1>Happy Birthday, <span class="special-name">My Partner</span>!</h1>
+        <p>On this special day, I want to celebrate you and all the happiness you bring to my life.</p>
+        <button class="hero-btn">Click To Celebrate</button>
+    </section>
+    <video autoplay muted loop id="background-video">
+        <source src="images/WhatsApp Video 2025-03-05 at 19.19.45_0d419752.mp4" type="video/mp4">
+        Your browser does not support the video tag.
+    </video>
+    
+
+    <section class="gallery" id="gallery">
+        <h2>Our Special Moments</h2>
+        <div class="image-grid">
+            <div class="image-card">
+                <img src="images/WhatsApp Image 2025-03-05 at 19.19.40_bf4266ae.jpg" alt="Special moment 1" data-description="A beautiful memory from our journey together.">
+            </div>
+            <div class="image-card">
+                <img src="images/WhatsApp Image 2025-03-05 at 19.19.39_bee69a61.jpg" alt="Special moment 2" data-description="Laughing together on a sunny afternoon.">
+            </div>
+            <div class="image-card">
+                <img src="images/WhatsApp Image 2025-03-05 at 19.19.55_d9b07d3a.jpg" alt="Special moment 3" data-description="Celebrating a special day with smiles.">
+            </div>
+            <div class="image-card">
+                <img src="images/WhatsApp Image 2025-03-05 at 19.19.52_94e5ead9.jpg" alt="Special moment 4" data-description="Cherishing the little moments in life.">
+            </div>
+            <div class="image-card">
+                <img src="images/WhatsApp Image 2025-03-05 at 19.19.38_d48586c2.jpg" alt="Special moment 5" data-description="A sweet and unforgettable moment.">
+            </div>
+            <div class="image-card">
+                <img src="images/WhatsApp Image 2025-03-05 at 19.19.49_dc24cf56.jpg" alt="Special moment 6" data-description="The day we made a lifetime memory.">
+            </div>
+            <div class="image-card">
+                <img src="images/WhatsApp Image 2025-03-05 at 19.19.55_aba069e9.jpg" alt="Special moment 7" data-description="Our special adventure together.">
+            </div>
+            <div class="image-card">
+                <img src="images/WhatsApp Image 2025-03-05 at 19.19.38_3465827f.jpg" alt="Special moment 8" data-description="The best moments are captured in time.">
+            </div>
+        </div>
+
+        <div class="modal" id="imageModal">
+            <div class="modal-content">
+                <button class="close-btn" onclick="closeModal()">X</button>
+                <img id="modalImage" src="" alt="">
+                <p class="description" id="imageDescription"></p>
+            </div>
+        </div>
+
+    </section>
+
+    <section class="countdown" id="countdown">
+        <h2>Countdown to Your Special Day</h2>
+        <div class="countdown-timer">
+            <div class="countdown-box">
+                <div class="number" id="days">00</div>
+                <div class="label">Days</div>
+            </div>
+            <div class="countdown-box">
+                <div class="number" id="hours">00</div>
+                <div class="label">Hours</div>
+            </div>
+            <div class="countdown-box">
+                <div class="number" id="minutes">00</div>
+                <div class="label">Minutes</div>
+            </div>
+            <div class="countdown-box">
+                <div class="number" id="seconds">00</div>
+                <div class="label">Seconds</div>
+            </div>
+        </div>
+    </section>
+
+    <section class="birthday-wishes" id="wishes">
+        <div style="height: 400px; display: flex; justify-content: center; align-items: center; flex-direction: column; text-align: center; padding: 2rem;">
+            <h2 style="color: white; margin-bottom: 2rem; text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.2);">Birthday Wishes</h2>
+            <p style="color: white; max-width: 600px; margin: 0 auto; text-shadow: 1px 1px 2px rgba(0, 0, 0, 0.2);">
+                May your special day be filled with all the joy and happiness that you deserve. 
+                Thank you for being the wonderful person that you are. 
+                I'm so grateful to have you in my life.
+            </p>
+        </div>
+    </section>
+
+    <footer>
+        <p>Made with ❤️ for your special day by your Abhishek 🫰</p>
+            </footer>
+
+            <script>
+                document.addEventListener("DOMContentLoaded", function () {
+                    const heartContainer = document.getElementById("hearts-container");
+            
+                    function createHeart() {
+                        const heart = document.createElement("div");
+                        heart.classList.add("heart");
+            
+                        // Random position along the width
+                        heart.style.left = Math.random() * 100 + "vw";
+            
+                        // Random animation duration for variety
+                        heart.style.animationDuration = Math.random() * 3 + 7 + "s"; 
+            
+                        heartContainer.appendChild(heart);
+            
+                        // Remove heart after animation completes
+                        setTimeout(() => {
+                            heart.remove();
+                        }, 10000); // Matches animation duration
+                    }
+            
+                    setInterval(createHeart, 100); // Generate new hearts every 500ms
+                });
+            </script>
+
+<script>
+    // Select all images
+    document.querySelectorAll('.image-card img').forEach(img => {
+        img.addEventListener('click', function() {
+            // Get image source and description
+            document.getElementById('modalImage').src = this.src;
+            document.getElementById('imageDescription').textContent = this.getAttribute('data-description');
+            
+            // Show modal
+            document.getElementById('imageModal').style.display = 'flex';
+        });
+    });
+
+    // Close modal function
+    function closeModal() {
+        document.getElementById('imageModal').style.display = 'none';
+    }
+</script>
+            
+
+    <script>
+        // Mobile Menu Toggle
+        const mobileMenu = document.querySelector('.mobile-menu');
+        const navLinks = document.querySelector('.nav-links');
+
+        mobileMenu.addEventListener('click', () => {
+            navLinks.classList.toggle('active');
+        });
+
+        // Smooth Scrolling
+        document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+            anchor.addEventListener('click', function (e) {
+                e.preventDefault();
+                navLinks.classList.remove('active');
+                document.querySelector(this.getAttribute('href')).scrollIntoView({
+                    behavior: 'smooth'
+                });
+            });
+        });
+
+        // Floating Hearts Animation
+        const heartsContainer = document.getElementById('hearts-container');
+        
+        function createHeart() {
+            const heart = document.createElement('div');
+            heart.classList.add('heart');
+            heart.style.left = Math.random() * 100 + 'vw';
+            heart.style.animationDuration = Math.random() * 5 + 5 + 's';
+            heart.style.opacity = Math.random() * 0.5 + 0.5;
+            heart.style.transform = `scale(${Math.random() * 0.5 + 0.5})`;
+            
+            heartsContainer.appendChild(heart);
+            
+            setTimeout(() => {
+                heart.remove();
+            }, 10000);
+        }
+        
+        setInterval(createHeart, 300);
+
+
+        //countdown
+let countdownDate = localStorage.getItem("countdownDate");
+
+if (!countdownDate) {
+    countdownDate = new Date("March 12, 2025 00:00:00").getTime();
+    localStorage.setItem("countdownDate", countdownDate);
+} else {
+    countdownDate = parseInt(countdownDate, 10);
+}
+
+function updateCountdown() {
+    const now = new Date().getTime();
+    const distance = countdownDate - now;
+
+    if (distance < 0) {
+        clearInterval(x);
+        document.getElementById("days").innerHTML = "00";
+        document.getElementById("hours").innerHTML = "00";
+        document.getElementById("minutes").innerHTML = "00";
+        document.getElementById("seconds").innerHTML = "00";
+        localStorage.removeItem("countdownDate"); // Clear storage after countdown ends
+        return;
+    }
+
+    const days = Math.floor(distance / (1000 * 60 * 60 * 24));
+    const hours = Math.floor((distance % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60));
+    const minutes = Math.floor((distance % (1000 * 60 * 60)) / (1000 * 60));
+    const seconds = Math.floor((distance % (1000 * 60)) / 1000);
+
+    document.getElementById("days").innerHTML = String(days).padStart(2, '0');
+    document.getElementById("hours").innerHTML = String(hours).padStart(2, '0');
+    document.getElementById("minutes").innerHTML = String(minutes).padStart(2, '0');
+    document.getElementById("seconds").innerHTML = String(seconds).padStart(2, '0');
+}
+
+// Initial call
+updateCountdown();
+
+// Update countdown every second
+const x = setInterval(updateCountdown, 1000);
+
+    </script>
+    <!-- Add this script to include canvas-confetti -->
+<script src="https://cdn.jsdelivr.net/npm/canvas-confetti@1.3.1"></script>
+
+<script>
+    // Select the button
+    document.querySelector('.hero-btn').addEventListener('click', (event) => {
+        createConfetti(event.clientX, event.clientY); // Burst confetti at click position
+        startConfetti(); // Start the 15-second confetti animation
+    });
+
+    // Function to create a burst of confetti at the click position
+    function createConfetti(x, y) {
+        const confettiCount = 30; // Number of confetti pieces
+        const colors = ["#ff4081", "#ffeb3b", "#4caf50", "#03a9f4", "#ff5722"]; // Colorful confetti
+        for (let i = 0; i < confettiCount; i++) {
+            const confetti = document.createElement("div");
+            confetti.classList.add("confetti");
+            confetti.style.backgroundColor = colors[Math.floor(Math.random() * colors.length)];
+            confetti.style.left = `${x}px`;
+            confetti.style.top = `${y}px`;
+            document.body.appendChild(confetti);
+            
+            // Animation properties
+            const animation = confetti.animate([
+                { transform: `translate(${Math.random() * 200 - 100}px, ${Math.random() * 200 - 100}px) rotate(${Math.random() * 360}deg)`, opacity: 1 },
+                { opacity: 0 }
+            ], {
+                duration: 1000 + Math.random() * 500,
+                easing: "ease-in"
+            });
+
+            animation.onfinish = () => confetti.remove();
+        }
+    }
+
+    // Function to start 15-second confetti animation when button is clicked
+    function startConfetti() {
+        var duration = 15 * 1000;
+        var animationEnd = Date.now() + duration;
+        var defaults = { startVelocity: 30, spread: 360, ticks: 60, zIndex: 0 };
+
+        function randomInRange(min, max) {
+            return Math.random() * (max - min) + min;
+        }
+
+        var interval = setInterval(function () {
+            var timeLeft = animationEnd - Date.now();
+            if (timeLeft <= 0) {
+                return clearInterval(interval);
+            }
+
+            var particleCount = 50 * (timeLeft / duration);
+            confetti({
+                ...defaults,
+                particleCount,
+                origin: { x: randomInRange(0.1, 0.3), y: Math.random() - 0.2 }
+            });
+            confetti({
+                ...defaults,
+                particleCount,
+                origin: { x: randomInRange(0.7, 0.9), y: Math.random() - 0.2 }
+            });
+        }, 250);
+    }
+</script>
+    
+</body>
+</html>
