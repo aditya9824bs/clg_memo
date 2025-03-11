@@ -1,0 +1,184 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Love Video Playlist</title>
+    <style>
+        /* Fullscreen Background Video */
+        .background-video {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100vw;
+            height: 100vh;
+            object-fit: cover;
+            z-index: -2;
+            opacity: 0.4; /* Adjust opacity for a subtle effect */
+        }
+
+        /* Light Pink Overlay */
+        body::before {
+            content: "";
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: rgba(255, 189, 199, 0.499); /* Light pink overlay */
+            z-index: -1;
+        }
+
+        /* Centered Video Player */
+        body {
+            margin: 0;
+            padding: 0;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+            font-family: 'Arial', sans-serif;
+            overflow: hidden;
+        }
+
+        .music-container {
+            background: rgba(255, 192, 203, 0.645); /* Light pink box */
+            padding: 10px;
+            border-radius: 15px;
+            text-align: center;
+            width: 90%;
+            max-width: 450px;
+            box-shadow: 0px 4px 15px rgba(0, 0, 0, 0.3);
+            position: relative;
+        }
+
+        h2 {
+            color: #ff4d6d;
+        }
+
+        #song-name {
+            font-size: 18px;
+            font-weight: bold;
+            margin-bottom: 10px;
+            color: #730000;
+        }
+
+        /* Main Video Player */
+        .video-wrapper {
+            position: relative;
+            border-radius: 10px;
+            overflow: hidden;
+        }
+
+        video {
+            width: 60%;
+            height: 50%;
+            /* max-height: 250px; */
+            border-radius: 10px;
+            box-shadow: 0px 5px 20px rgba(255, 105, 180, 0.5); /* Light pink shadow */
+        }
+
+        /* Controls */
+        .controls {
+            display: flex;
+            justify-content: space-around;
+            margin-top: 10px;
+        }
+
+        button {
+            background-color: #ff4d6d;
+            border: none;
+            color: white;
+            padding: 10px;
+            font-size: 18px;
+            border-radius: 50%;
+            width: 50px;
+            height: 50px;
+            cursor: pointer;
+            transition: 0.3s;
+        }
+
+        button:hover {
+            background-color: #d43f5d;
+        }
+    </style>
+</head>
+<body>
+
+    <!-- Fullscreen Background Video -->
+    <video class="background-video" autoplay loop muted>
+        <source src="images/WhatsApp Video 2025-03-05 at 19.19.45_0d419752.mp4" type="video/mp4">
+        Your browser does not support the video tag.
+    </video>
+
+    <div class="music-container">
+        <h2>💖 Love Video Playlist 💖</h2>
+        <p id="song-name">Video Name</p>
+
+        <div class="video-wrapper">
+            <video id="video-player" controls>
+                <source src="" type="video/mp4">
+                Your browser does not support the video tag.
+            </video>
+        </div>
+
+        <div class="controls">
+            <button onclick="prevVideo()">⏮</button>
+            <button onclick="playPause()">▶️</button>
+            <button onclick="nextVideo()">⏭</button>
+        </div>
+    </div>
+
+    <script>
+        // 🎥 Video List
+        const videos = [
+            { name: "Tere Yaadon Main Varsha", src: "images/Teri Yaadon Mein Varsha (1).mp4" },
+            { name: "Tere Yaadon Main Varsha", src: "images/Teri Yaadon Mein Varsha.mp4" },
+            { name: "Tu Hai Varsha", src: "images/Varsha.mp4" },
+            { name: "Ek Tarfa Pyar", src: "images/ek tarfa pyar - Made with Clipchamp.mp4" }
+        ];
+
+        let currentVideoIndex = 0;
+        let videoPlayer = document.getElementById("video-player");
+        let songNameDisplay = document.getElementById("song-name");
+        let playButton = document.querySelector(".controls button:nth-child(2)");
+
+        // 🔥 Load First Video
+        function loadVideo(index) {
+            videoPlayer.src = videos[index].src;
+            songNameDisplay.textContent = videos[index].name;
+        }
+
+        // ▶️ Play/Pause Function
+        function playPause() {
+            if (videoPlayer.paused) {
+                videoPlayer.play();
+                playButton.textContent = "⏸"; // Change to Pause
+            } else {
+                videoPlayer.pause();
+                playButton.textContent = "▶️"; // Change to Play
+            }
+        }
+
+        // ⏭ Next Video
+        function nextVideo() {
+            currentVideoIndex = (currentVideoIndex + 1) % videos.length;
+            loadVideo(currentVideoIndex);
+            videoPlayer.play();
+            playButton.textContent = "⏸";
+        }
+
+        // ⏮ Previous Video
+        function prevVideo() {
+            currentVideoIndex = (currentVideoIndex - 1 + videos.length) % videos.length;
+            loadVideo(currentVideoIndex);
+            videoPlayer.play();
+            playButton.textContent = "⏸";
+        }
+
+        // 🚀 Load First Video on Page Load
+        loadVideo(currentVideoIndex);
+    </script>
+
+</body>
+</html>
