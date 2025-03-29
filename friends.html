@@ -1,0 +1,146 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Friendship Slider</title>
+  <style>
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+    }
+
+    body {
+      font-family: Arial, sans-serif;
+      background-color: #fce4ec; /* Light pink background */
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      height: 100vh;
+    }
+
+    .slider-container {
+      width: 100%;
+      max-width: 900px;
+      position: relative;
+      border-radius: 10px;
+      overflow: hidden;
+      box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+    }
+
+    .slider {
+      display: flex;
+      transition: transform 0.5s ease-in-out;
+      gap: 10px; /* No gap between images */
+
+
+    }
+
+    .slider img {
+      width: 100%;
+      height: 500px;
+      object-fit: cover;
+
+    }
+
+    /* Left and Right Arrow Styles */
+    .arrow-left, .arrow-right {
+      position: absolute;
+      top: 50%;
+      transform: translateY(-50%);
+      background-color: rgba(255, 255, 255, 0.7);
+      padding: 10px;
+      border-radius: 50%;
+      font-size: 24px;
+      cursor: pointer;
+      transition: background-color 0.3s;
+    }
+
+    .arrow-left {
+      left: 10px;
+    }
+
+    .arrow-right {
+      right: 10px;
+    }
+
+    .arrow-left:hover, .arrow-right:hover {
+      background-color: #f48fb1; /* Darker pink for hover effect */
+    }
+
+    /* Optional: Style for a smooth fade-in effect on images */
+    .slider img {
+      opacity: 0;
+      animation: fadeIn 0.5s forwards;
+    }
+
+    @keyframes fadeIn {
+      from {
+        opacity: 0;
+      }
+      to {
+        opacity: 1;
+      }
+    }
+  </style>
+</head>
+<body>
+  <div class="slider-container">
+    <!-- Slider images -->
+    <div class="slider">
+      <img src="Varshuu/WhatsApp Image 2025-03-30 at 02.40.18_b0c842d0.jpg" alt="Friendship 1">
+      <img src="Varshuu/WhatsApp Image 2025-03-30 at 02.40.19_9b509fc3.jpg" alt="Friendship 2">
+      <img src="Varshuu/WhatsApp Image 2025-03-30 at 02.40.19_c4b504c3.jpg" alt="Friendship 3">
+      <img src="Varshuu/WhatsApp Image 2025-03-30 at 02.40.30_fa5fef63.jpg" alt="Friendship 4">
+      <img src="Varshuu/WhatsApp Image 2025-03-30 at 02.48.32_70b265e7.jpg" alt="Friendship 5">
+      <img src="Varshuu/WhatsApp Image 2025-03-30 at 02.48.33_a117bcfb.jpg" alt="Friendship 6">
+      <img src="Varshuu/WhatsApp Image 2025-03-30 at 02.48.33_bb2cf501.jpg" alt="Friendship 7">
+      <img src="Varshuu/WhatsApp Image 2025-03-30 at 02.48.33_e63a068c.jpg" alt="Friendship 8">
+      <img src="Varshuu/WhatsApp Image 2025-03-30 at 02.48.34_da2f7c70.jpg" alt="Friendship 9">
+      <img src="Varshuu/WhatsApp Image 2025-03-30 at 02.54.18_4acc80c6.jpg" alt="Friendship 10">
+      <img src="Varshuu/WhatsApp Image 2025-03-30 at 03.01.43_b3e2dc28.jpg" alt="Friendship 11">
+    </div>
+    
+    <!-- Left and Right Arrows -->
+    <div class="arrow-left">&#10094;</div>
+    <div class="arrow-right">&#10095;</div>
+  </div>
+
+  <script>
+    // JavaScript to handle the slider functionality
+    const slider = document.querySelector('.slider');
+    const leftArrow = document.querySelector('.arrow-left');
+    const rightArrow = document.querySelector('.arrow-right');
+    let index = 0;
+    const totalImages = document.querySelectorAll('.slider img').length;
+
+    // Function to show the next image
+    function showNextImage() {
+      index++;
+      if (index >= totalImages) index = 0;
+      updateSlider();
+    }
+
+    // Function to show the previous image
+    function showPrevImage() {
+      index--;
+      if (index < 0) index = totalImages - 1;
+      updateSlider();
+    }
+
+    // Update the slider position based on index
+    function updateSlider() {
+      const offset = -index * 100;
+      slider.style.transform = `translateX(${offset}%)`;
+    }
+
+    // Add event listeners to the arrows
+    rightArrow.addEventListener('click', showNextImage);
+    leftArrow.addEventListener('click', showPrevImage);
+
+    // Optional: Auto-slide every 5 seconds
+    setInterval(showNextImage, 3000);
+  </script>
+</body>
+</html>
